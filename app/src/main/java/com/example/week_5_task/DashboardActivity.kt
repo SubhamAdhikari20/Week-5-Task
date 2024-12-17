@@ -26,11 +26,13 @@ class DashboardActivity : AppCompatActivity() {
 
         val name : String = intent.getStringExtra("name").toString()
         val email : String = intent.getStringExtra("email").toString()
+        val gender : String = intent.getStringExtra("gender").toString()
         val country : String = intent.getStringExtra("country").toString()
         val city : String = intent.getStringExtra("city").toString()
 
         binding.nameTextView.text = name
         binding.emailTextView.text = email
+        binding.genderTextView.text = gender
         binding.countryTextView.text = country
         binding.cityTextView.text = city
 
@@ -61,7 +63,7 @@ class DashboardActivity : AppCompatActivity() {
         binding.feedRecyclerView.adapter = feedAdapter
 
         // Vertical Scroll
-        binding.feedRecyclerView.layoutManager = LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.HORIZONTAL, false)
+        binding.feedRecyclerView.layoutManager = LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.VERTICAL, false)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

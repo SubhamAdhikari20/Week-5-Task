@@ -54,10 +54,17 @@ class SignUpActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val name : String = binding.nameEditText.text.toString()
             val email : String = binding.emailEditText.text.toString()
             val password : String = binding.passwordEditText.text.toString()
-            val gender1 : String = binding.radioButtonMale.text.toString()
-            val gender2 : String = binding.radioButtonFemale.text.toString()
             val country : String = binding.spinner.selectedItem.toString()
             val city : String = binding.autoCompleteCity.text.toString()
+
+            // Find the selected RadioButton
+            val selectedGenderId = binding.radioButtonGroup.checkedRadioButtonId
+
+            val gender = when (selectedGenderId) {
+                R.id.radioButtonMale -> "Male"
+                R.id.radioButtonFemale -> "Female"
+                else -> ""
+            }
 
             if(name.isEmpty()){
                 binding.nameEditText.error = "Name cannot be Empty"
@@ -68,9 +75,12 @@ class SignUpActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             else if(password.isEmpty()){
                 binding.passwordEditText.error = "Password cannot be empty"
             }
-//            else if(country.isEmpty() || country == "Select"){
-//                binding.country.error = "Select an option"
-//            }
+            else if(selectedGenderId == -1){
+                Toast.makeText(this@SignUpActivity, "Please select your gender", Toast.LENGTH_SHORT).show()
+            }
+            else if(country.isEmpty() || country == "Select"){
+                Toast.makeText(this@SignUpActivity, "Please select your country", Toast.LENGTH_SHORT).show()
+            }
             else if(city.isEmpty()){
                 binding.autoCompleteCity.error = "City cannot be empty"
             }
@@ -87,6 +97,7 @@ class SignUpActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 )
                 intent.putExtra("name", name)
                 intent.putExtra("email", email)
+                intent.putExtra("gender", gender)
                 intent.putExtra("country", country)
                 intent.putExtra("city", city)
                 startActivity(intent)
